@@ -8,6 +8,11 @@ const port = 1000;
 app.use('/',require('./routes'));
 
 
+//setting up view engine(using) ejs
+app.set('view engine','ejs');
+app.set('views','./views');
+
+
 
 
 
