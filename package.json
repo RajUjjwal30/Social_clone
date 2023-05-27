@@ -1,0 +1,15 @@
+{
+  "name": "social_clone",
+  "version": "1.0.0",
+  "description": "This project is clone of social media website.",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raj Ujjwal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
