@@ -4,6 +4,7 @@ const app = express();
 const port = 1000;
 
 //use express router
+//any request that comes in require the index of routes
 app.use('/',require('./routes'));
 
 

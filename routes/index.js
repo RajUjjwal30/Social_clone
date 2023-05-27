@@ -6,7 +6,12 @@ const homeController = require('../controllers/home_controller');
 
 router.get('/',homeController.home);
 
+//here,we are making 'users.js' to be available in main index.js for using it.
+router.use('/users',require('./users'));
 
+
+//for any further routes , access from here
+//router.use('/routerName',require('./routerFile));
 
 
 //to know this has loaded
