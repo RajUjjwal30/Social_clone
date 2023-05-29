@@ -1,6 +1,6 @@
 //requiring mongoose after installation
 const mongoose = require('mongoose');
-const router = require('../routes');
+
 //providing connection to the database
 mongoose.connect('mongodb://localhost/social_clone_development');
 
