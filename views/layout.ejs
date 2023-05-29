@@ -3,6 +3,12 @@
         <title>
             <%= title %>
         </title>
+
+        <!-- for linking layout.css file -->
+
+        <link rel="stylesheet" href="/css/layout.css">
+        <!-- whenever there is something called as a link tag or a script tag in the body,it will automatically put link tag(<%- style %>) above </head> and script tag above body closing -->
+        <%- style %>
     </head>
     <body>
         
@@ -12,6 +18,6 @@
 
         <%- include('_footer'); -%>
 
-        
+        <%- script %> 
     </body>
 </html>

@@ -6,8 +6,17 @@ const port = 1000;
 //requiring epress-ejs-layouts(we have to keep above routes and views)
 const expressLayouts = require('express-ejs-layouts');
 
-app.use(expressLayouts);
+//placing mongoose setup in this file
+const db = require('./config/mongoose');
 
+//telling in which folder should the app lookout for 'static files'
+app.use(express.static('./assets'));
+
+app.use(expressLayouts);
+//just below this 
+//extract style and scripts from sub-pages(like user-profile.ejs) into the layout
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 //use express router
 //any request that comes in require the index of routes
