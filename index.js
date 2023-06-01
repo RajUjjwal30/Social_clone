@@ -1,4 +1,7 @@
 const express = require('express');
+
+//requiring cookie-parser
+const cookieParser = require('cookie-parser');
 const app = express();
 
 const port = 1000;
@@ -8,6 +11,11 @@ const expressLayouts = require('express-ejs-layouts');
 
 //placing mongoose setup in this file
 const db = require('./config/mongoose');
+
+//Reading through the POST requests
+app.use(express.urlencoded());
+//we need to tell the app to use it(in the middleware(here only..))
+app.use(cookieParser());
 
 //telling in which folder should the app lookout for 'static files'
 app.use(express.static('./assets'));
