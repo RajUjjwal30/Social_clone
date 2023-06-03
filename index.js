@@ -50,10 +50,18 @@ app.use(session({
         maxAge: (1000 * 60 * 100)
         //maxage::total time in ms for expiration of cookie
     }
+    //saveUninitialized : whenever there is a request which is not initialized
+    //which means user is not logged in and the session is not established
+
+    //resave: when the identity is established or some sort of data is present cookie(session data),if that is being stored, do i want to rewrite it even if it is not changed 
+
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+//setup the current user usage
+app.use(passport.setAuthenticatedUser);
 
 
 //use express router
