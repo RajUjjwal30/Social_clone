@@ -12,6 +12,11 @@ const expressLayouts = require('express-ejs-layouts');
 //placing mongoose setup in this file
 const db = require('./config/mongoose');
 
+//used for session cookie & Passport authentication 
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+
 //Reading through the POST requests
 app.use(express.urlencoded());
 //we need to tell the app to use it(in the middleware(here only..))
@@ -26,15 +31,36 @@ app.use(expressLayouts);
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 
-//use express router
-//any request that comes in require the index of routes
-app.use('/',require('./routes'));
+
 
 
 //setting up view engine(using) ejs
 app.set('view engine','ejs');
 app.set('views','./views');
 
+//
+app.use(session({
+    name: 'social_clone',
+//todo change the secret before deployment in production mode
+//whenever encryption happens ther is a key to encode and decode it.
+    secret: "blahsomething",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: (1000 * 60 * 100)
+        //maxage::total time in ms for expiration of cookie
+    }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+//use express router
+//any request that comes in require the index of routes
+app.use('/',require('./routes'));
+//it should be used after above passporrt bcoz it will throw error
+//Error: Login sessions require session support. Did you forget to use `express-session` middleware?
 
 
 

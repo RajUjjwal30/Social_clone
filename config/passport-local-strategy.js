@@ -37,6 +37,7 @@ function(email,password,done){
 
 
 //serializing the user to decide which key is to be kept in the cookies
+//serializer() function sets an id as the cookie in the user's browser
 passport.serializeUser(function(user,done){
     done(null, user.id);
  //we jaut want to store user id encrptedd format into the cookies
@@ -44,6 +45,7 @@ passport.serializeUser(function(user,done){
 });
 
 //de-serialzing the user from the key in the cookies
+//de-serialzer() function uses the id to look up the user in the db and retrieve the user object with data. 
 passport.deserializeUser(function(id,done){
     User.findById(id, function(err,user){
         if(err){
