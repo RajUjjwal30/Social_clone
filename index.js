@@ -19,6 +19,18 @@ const passportLocal = require('./config/passport-local-strategy');
 
 //this require an argument(session bcoz you need to store session cookie)
 const MongoStore = require('connect-mongo');
+
+const sassMiddleware = require('node-sass-middleware');
+
+//using sass middleware
+app.use(sassMiddleware({
+    src: '/assets/scss',
+    dest: '/assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
+
 //Reading through the POST requests
 app.use(express.urlencoded());
 //we need to tell the app to use it(in the middleware(here only..))
