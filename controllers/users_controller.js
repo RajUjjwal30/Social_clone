@@ -63,8 +63,20 @@ module.exports.create = function(req,res){
 
 }
 
-//get the sign-in data ,,action for ("users/create-session")
+//get the sign-in data,create a session for the user ,,action for ("users/create-session")
 module.exports.createSession = function(req,res){
      return res.redirect('/');
 }
+
+module.exports.destroySession = function(req,res){
+     //passport gives this function to request
+    
+          req.logout(function(err) {
+            if (err) { return next(err); }
+            res.redirect('/');
+          });
+}
+     
+
+   
 
