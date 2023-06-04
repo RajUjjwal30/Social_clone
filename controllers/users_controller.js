@@ -10,6 +10,11 @@ module.exports.profile = function(req,res){
 //Now above controller is ready to be accessed by router
 //rendering sign-up page
 module.exports.signUp = function(req,res){
+ 
+//sign-up and sign-in pages only available when the user is sign-out
+if(req.isAuthenticated()){
+     return res.redirect('/users/profile');
+}
      return res.render('user_sign-up',{
           title: "Facebook | Sign-Up"
      })
@@ -18,6 +23,9 @@ module.exports.signUp = function(req,res){
 
 //rendering sign-in page
 module.exports.signIn = function(req,res){
+     if(req.isAuthenticated()){
+          return res.redirect('/users/profile');
+     }
      return res.render('user_sign-in',{
           title: "Facebook | Sign-In"
           //if in title we do not give ("") then we will get 'reference error'
