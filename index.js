@@ -17,6 +17,8 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
+//this require an argument(session bcoz you need to store session cookie)
+const MongoStore = require('connect-mongo');
 //Reading through the POST requests
 app.use(express.urlencoded());
 //we need to tell the app to use it(in the middleware(here only..))
@@ -49,7 +51,18 @@ app.use(session({
     cookie: {
         maxAge: (1000 * 60 * 100)
         //maxage::total time in ms for expiration of cookie
+    },
+    store:MongoStore.create(
+        {
+        mongoUrl:'mongodb://localhost:27017',
+
+        autoRemove: 'disabled'
+    },
+    //callback function if the connection is not established
+    function(err){
+        console.log(err ||'connect-mongodb setup ok');
     }
+    )
     //saveUninitialized : whenever there is a request which is not initialized
     //which means user is not logged in and the session is not established
 
