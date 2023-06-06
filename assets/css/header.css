@@ -1,0 +1,18 @@
+.header {
+  width: 100%;
+  height: 40px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.7rem;
+  background-color: #791ed3; }
+
+a {
+  color: beige;
+  text-decoration: none; }
+
+a:hover {
+  color: hotpink; }
+
+li {
+  list-style-type: none; }
