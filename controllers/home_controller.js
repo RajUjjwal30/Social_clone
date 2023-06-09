@@ -15,7 +15,17 @@ module.exports.home = function(req,res){
 // });
 
 //populate the user of each post || exec() is a callback function,shifted the function into exec()
-Post.find({}).populate('user').exec(function(err,posts){
+Post.find({})
+.populate('user')
+//preloading the comments
+//when i need to populate different models(like comments and the user)so,preloadng or populating 2 models
+.populate({
+    path: 'comments',
+    populate:{
+        path: 'user'
+    }
+})
+.exec(function(err,posts){
     return res.render('home',{
         title: "Facebook | Home",
         posts: posts
