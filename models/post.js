@@ -10,8 +10,15 @@ const postSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref : 'User'
-    }
+    },
     //ObjectId :it is a special type typically used for unique identifiers
+    //include the array of IDs of all comments in this post schema itself
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref : 'comment'
+        }
+    ]
 },{
     timestamps :true
 
