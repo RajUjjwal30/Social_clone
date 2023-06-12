@@ -1,0 +1,57 @@
+<li>
+                                        
+    <p>
+    <!-- deleting posts with authorization -->
+            <!-- delete button is visible to the user who has signed in and only the post creator can delete the post -->
+
+            <% if (locals.user && locals.user.id == post.user.id) { %>
+          
+                    <!-- creating delete button for posts -->
+            <small>
+                    <a href="/posts/destroy/<%= post.id %>">X</a>
+            </small>
+            <% } %>
+            <%= post.content %>
+            <br>
+            <small>
+                    <%= post.user.name %>
+            </small>
+    </p>
+    <!-- creating form for comments -->
+    <div class="post-comments">
+            <!-- those who logged in only they can see the form -->
+            <% if (locals.user) { %>
+                    <form action="/comments/create" method="post">
+                            <input type="text" name="content" placeholder="Type here to add comment..!" required>
+
+                            <!-- The id of the post in which we have to add a comment -->
+                            <input type="hidden" name="post" value="<%= post._id%>">
+                            <input type="submit" value="Add comment">
+
+                    </form>
+
+
+           <% } %>
+    <!-- showing comments on the page -->
+           <div class="post-comments-list">
+                    <ul id="post-comments-<%= post._id%>">
+                            <!-- post.comments,, bcoz comments is under the post and hence, iterating over all the post and displaying what's inside -->
+                            <% for(comment of post.comments) { %>
+
+                                <%- include('_comment') -%>  
+
+                            <% } %>
+
+                     </ul>
+
+
+           </div>
+
+
+
+
+
+    </div>
+
+    
+</li>
