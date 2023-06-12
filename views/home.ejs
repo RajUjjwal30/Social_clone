@@ -52,7 +52,18 @@
                                                         <ul id="post-comments-<%= post._id%>">
                                                                 <!-- post.comments,, bcoz comments is under the post and hence, iterating over all the post and displaying what's inside -->
                                                                 <% for(comment of post.comments) { %>
+
                                                                         <p>
+                                                                                <!-- deleting comments with authorization -->
+                                                <!-- delete button is visible to the user who has signed in and only the comment creator can delete the comment -->
+                                                                                <% if (locals.user && locals.user.id == comment.user.id) { %>
+                                              
+                                                                                        <!-- creating delete button for comments -->
+                                                                                        <small>
+                                                                                                <a href="/comments/destroy/<%= comment.id %>">X</a>
+                                                                                        </small>
+                                                                                <% } %>
+
                                                                                 <%= comment.content %>
                                                                                 <br>
                                                                                 <small>
