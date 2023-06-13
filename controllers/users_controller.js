@@ -9,11 +9,29 @@ module.exports.profile = function(req,res){
                //we can't use the keyword 'user' bcoz it is already there in 'locals'
                profile_user: user
           });
-     } );
+     });
      
 
 }
 //Now above controller is ready to be accessed by router
+
+
+module.exports.update = function(req,res){
+     if(req.user.id== req.params.id){
+          //req.body = req.body.name & req.body.email
+          User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+               return res.redirect('back');
+          });
+     }else{
+          //if anyone try to fiddle with the system,then showing this message
+          //401 is http ststus code for 'Unauthorized'
+          return res.status(401).send('Unauthorized');
+     }
+}
+
+
+
+
 //rendering sign-up page
 module.exports.signUp = function(req,res){
  
