@@ -2,9 +2,15 @@
 const User = require('../models/user');
 
 module.exports.profile = function(req,res){
-     return res.render('user_profile',{
-          title:"User Profile"
-     })
+     //finding all the users by id
+     User.findById(req.params.id, function(err,user){
+          return res.render('user_profile',{
+               title:'User Profile',
+               //we can't use the keyword 'user' bcoz it is already there in 'locals'
+               profile_user: user
+          });
+     } );
+     
 
 }
 //Now above controller is ready to be accessed by router

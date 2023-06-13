@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports.home = function(req,res){
    // console.log(req.cookies);
@@ -24,12 +25,22 @@ Post.find({})
     populate:{
         path: 'user'
     }
+   
+        
+    
 })
 .exec(function(err,posts){
-    return res.render('home',{
-        title: "Facebook | Home",
-        posts: posts
-    });
+    //finding all the user(for updating profile(showing in friends))
+   
+    User.find({}, function(err,users){
+        return res.render('home',{
+            title: "Facebook | Home",
+            posts: posts,
+            all_users: users
+        });
+
+    })
+    
 });
 
 

@@ -2,7 +2,8 @@
     <p>
         <!-- deleting comments with authorization -->
 <!-- delete button is visible to the user who has signed in and only the comment creator can delete the comment -->
-        <% if (locals.user && locals.user.id == comment.user.id) { %>
+        <% if (locals.user && (locals.user.id == comment.user.id || locals.user.id == post.user.id)) { %>
+            <!-- (locals.user.id == comment.user.id || locals.user.id == post.user.id)) --for deleting comments posted by other user on your post -->
 
                 <!-- creating delete button for comments -->
                 <small>
