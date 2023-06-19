@@ -22,6 +22,11 @@ const MongoStore = require('connect-mongo');
 
 const sassMiddleware = require('node-sass-middleware');
 
+const flash = require('connect-flash');
+//requirinf self-made middleware
+const customMware = require('./config/middleware');
+
+
 //using sass middleware
 app.use(sassMiddleware({
     src: './assets/scss',
@@ -88,6 +93,10 @@ app.use(passport.session());
 //setup the current user usage
 app.use(passport.setAuthenticatedUser);
 
+//we need to put(flash) it after the session s being used because it uses session-cookie
+app.use(flash());
+//using customware
+app.use(customMware.setFlash);
 
 //use express router
 //any request that comes in require the index of routes

@@ -89,6 +89,8 @@ module.exports.create = function(req,res){
 
 //get the sign-in data,create a session for the user ,,action for ("users/create-session")
 module.exports.createSession = function(req,res){
+     req.flash('success','Logged in successfully');
+     //to take out this request and put it in response we have make it our middleware(middleware.js)
      return res.redirect('/');
 }
 
@@ -97,10 +99,16 @@ module.exports.destroySession = function(req,res){
     
           req.logout(function(err) {
             if (err) { return next(err); }
+
+            req.flash('success','Logged out successfully');
             res.redirect('/');
           });
 }
      
 
-   
+   //we need to send the flash messages from the current request being completed 
+   //to the next page.eg. i typed username and password and submit it,
+   //it is being handled by one action.It matches the username and password
+   //finds out the user and redirects me to another page
+   //so the function which matches the username and password needs to tell me whether request is correct or not.
 
