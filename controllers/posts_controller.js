@@ -3,11 +3,22 @@ const Comment = require('../models/comment');
 //controller action for saving data coming from the form into the database
 module.exports.create = async function(req,res){
     try{
-         await Post.create({
+         let post = await Post.create({
             content: req.body.content,
             user: req.user._id
     //why req.user._id -->we want to just store the ID(going to be Unique in whole Db) not the whole user object
-        }); 
+        });
+        //checking if the request is AJAX request(Xml http request-> xhr)
+        if(req.xhr){
+            return res.status(200).json({
+                data: {
+                    post: post
+                },
+                message: "Post created!"
+            });
+        }
+
+
         //creating flash messages on Post creation
 
         req.flash('success', 'Post added successfully');
