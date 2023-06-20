@@ -8,11 +8,15 @@ module.exports.create = async function(req,res){
             user: req.user._id
     //why req.user._id -->we want to just store the ID(going to be Unique in whole Db) not the whole user object
         }); 
+        //creating flash messages on Post creation
+
+        req.flash('success', 'Post added successfully');
+
         return res.redirect('back');
 
     }catch(err){
-        console.log('Error',err)
-        return;
+        req.flash('error',err);
+        return res.redirect('back');
     }
 }
 
@@ -25,14 +29,19 @@ module.exports.destroy = async function(req,res){
             post.remove();
 
            await Comment.deleteMany({post: req.params.id});
+              
+                //flash message for post deletion
+
+                req.flash('success', 'Post and associated comments deleted');
                 return res.redirect('back');
             
         }else{
+            req.flash('error', 'You cannot delete this post!')
             return res.redirect('back');
         }
     }catch(err){
-        console.log('Error',err);
-        return;
+        req.flash('error', err);
+        return res.redirect('back');
     }
     
 }
