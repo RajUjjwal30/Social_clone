@@ -5,6 +5,8 @@ module.exports.home = async function(req,res){
     try{
       //populate the user of each post 
             let posts = await Post.find({})
+            //sorting posts on the basis of time,recent post ->latest time
+            .sort('-createdAt')
             .populate('user')
             //preloading the comments
             //when i need to populate different models(like comments and the user)so,preloadng or populating 2 models

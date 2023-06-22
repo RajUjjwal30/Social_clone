@@ -40,6 +40,17 @@ module.exports.destroy = async function(req,res){
             post.remove();
 
            await Comment.deleteMany({post: req.params.id});
+
+            //(handling AJAX request for deletion) receiving request of deletion from ajax
+            if(req.xhr){
+                return res.status(200).json({
+                    data : {
+                        post_id : req.params.id
+                    },
+                    message : "Post deleted"
+                });
+            }
+
               
                 //flash message for post deletion
 
