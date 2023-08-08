@@ -1,5 +1,6 @@
 const express = require('express');
 
+const multer = require('multer');
 //requiring cookie-parser
 const cookieParser = require('cookie-parser');
 const app = express();

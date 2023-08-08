@@ -22,6 +22,11 @@
                     $('#posts-list-container>ul').prepend(newPost);
                     //.prepend in place of .append because new post created will be on top
 
+                    
+
+
+
+
                     //(populating 'deleteLink') for deleting all posts that is dynamicaaly added
                     deletePost($(' .delete-post-button', newPost));
                     //there is space b/w ' and .
@@ -99,7 +104,7 @@
                         //this is how you get the value of href in <a> tag
                         url : $(deleteLink).prop('href'),
                         success : function(data){
-                            $(`#post-${data.post_id}`).remove();
+                            $(`#post-${data.data.post_id}`).remove();
                         },error : function(error){
                             console.log(error.responseText);
                         }
