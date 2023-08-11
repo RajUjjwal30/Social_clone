@@ -37,7 +37,15 @@ const storage = multer.diskStorage({
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
       cb(null, file.fieldname + '-' + uniqueSuffix)
     }
-  })
+  });
+
+  //static functions(oops)
+  userSchema.statics.uploadedAvatar = multer({ storage: storage }).single('avatar');
+   //.single for single avatar file
+ userSchema.statics.avatarPath = AVATAR_PATH;
+ //because we need AVATAR_PATH to be available publically fro the 'user model'
+
+ 
 
 //telling mongoose that this is a model
 const User = mongoose.model('User',userSchema);
