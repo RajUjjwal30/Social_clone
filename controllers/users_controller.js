@@ -1,5 +1,8 @@
 //importing user model for accessing functions like findOne
 const User = require('../models/user');
+//for deleting or replacing avatar we need to require fs(file system)
+const fs = require('fs');
+const path = require('path');
 
 module.exports.profile = function(req,res){
      //finding all the users by id
@@ -44,6 +47,11 @@ module.exports.update = async function(req,res){
                //for that we have put a check that if use is not uploading the file
                //then we are going to check for it and then update when user is user is sending.
                     if (req.file){
+                         //Replacing AVatar
+                         //checking if the user has any avatar already present in it
+                         if(user.avatar){
+                              fs.unlinkSync(path.join(__dirname, '..',user.avatar));
+                         }
                          //this is saving the path of the uploaded file into the avatar field in the user
                          user.avatar = User.avatarPath + '/' + req.file.filename
                     }
