@@ -5,10 +5,10 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require('../models/user');
 
 let opts = {
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken,
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey : 'social_clone'
     //Header is a list of keys. Header has a key called
-    //Authorizationthat is also a list of keys,so that can have a key called Bearer.
+    //Authorization that is also a list of keys,so that can have a key called Bearer.
     //Now the Beareer will have the JWT Token. 
 }
 
