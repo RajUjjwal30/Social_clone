@@ -24,6 +24,13 @@ router.post('/create-session', passport.authenticate(
 
 router.get('/sign-out',usersController.destroySession);
 
+//we are sending this to google(3rd part authentication) for cheking in their own db , and then google will give response as a callback URL
+router.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+//scope : it is info which we are looking to fetch. It is an array of Strings
+//email is not a part of the profile , so we need to take permission
+
+//callback URl (response from google)
+router.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/users/sign-in'}), usersController.createSession);
 
 
 module.exports = router;

@@ -20,6 +20,8 @@ const passportLocal = require('./config/passport-local-strategy');
 
 const passportJWT = require('./config/passport-jwt-strategy');
 
+const passporrtGoogle = require('./config/passport-google-oauth2-strategy'); 
+
 //this require an argument(session bcoz you need to store session cookie)
 const MongoStore = require('connect-mongo');
 
