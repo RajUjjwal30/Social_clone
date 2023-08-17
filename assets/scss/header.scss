@@ -1,29 +1,41 @@
-.header {
-    width: 97%;
-    height: 40px;
+#layout-header nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    background: rgb(60, 60, 179);
     color: white;
-    // border: 40px salmon;
-     display:flex;
-     justify-content: space-between;
-     padding: 0 20px;
-     align-items: center;
-     
-    font-size: 1.7rem;
-    background-color: rgb(121, 30, 211);
+    box-shadow: 1px 1px 1px 1px lightgrey;
     
+    .mini-logo{
+      p{
+          margin: 5px;
+          font-size: 2.4rem;
+          font-weight: bold;
+      }
+  }
+  
+  .auth-links{
+    ul{
+        margin: 5% 5px;
+        display: flex;
+        list-style: none;
+        li{
+            margin-right: 10px;
+        }
+    }
+  }
+  
+  
+  a {
+    color: #e2dade;
+    text-decoration: none; 
     
 
-}
+    }
+  
+  a:hover {
+    color: hotpink; 
+  
+  }
 
-a {
-    color: rgb(127, 10, 71);
-    text-decoration: none;
-    
-}
- a:hover{
-     color: hotpink;
- }
-
-li{
-    list-style-type: none;
 }
