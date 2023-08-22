@@ -5,11 +5,13 @@ const crypto = require('crypto');
 
 const User = require('../models/user');
 
+const env = require('./environment');
+
 //Telling Passsport to use Google Auth
 passport.use(new googleStrategy({
-    clientID: "1021224603731-1rbmg913tholnh27dpfhbfdaepflveft.apps.googleusercontent.com",
-    clientSecret: "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",
-    callbackURL: "http://localhost:1000/users/auth/google/callback",
+    clientID: env.google_client_id,
+    clientSecret: env.google_client_secret,
+    callbackURL: env.google_call_back_url,
 },////this callbackURL will be matched from the one with Google
 //when this accessToken expires you use the refresh to get new accessToken.
 //callback function

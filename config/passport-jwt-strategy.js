@@ -3,10 +3,11 @@ const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 const User = require('../models/user');
+const env = require('./environment');
 
 let opts = {
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey : 'social_clone'
+    secretOrKey : env.jwt_secret
     //Header is a list of keys. Header has a key called
     //Authorization that is also a list of keys,so that can have a key called Bearer.
     //Now the Beareer will have the JWT Token. 

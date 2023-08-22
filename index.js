@@ -1,5 +1,7 @@
 const express = require('express');
 
+const env = require('./config/environment');
+
 const multer = require('multer');
 //requiring cookie-parser
 const cookieParser = require('cookie-parser');
@@ -31,17 +33,14 @@ const flash = require('connect-flash');
 //requirinf self-made middleware
 const customMware = require('./config/middleware');
 
-//setting up chat server to be used with socket.io
-const chatServer = require('http').Server(app);
-const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
-chatServer.listen(5000);
-console.log('chat server is listening on port 5000');
 
+
+const path = require('path');
 
 //using sass middleware
 app.use(sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
+    src: path.join(__dirname, env.asset_path, 'scss'),
+    dest: path.join(__dirname, env.asset_path, 'css'),
     debug: true,
     outputStyle: 'extended',
     prefix: '/css'
@@ -53,7 +52,7 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 //telling in which folder should the app lookout for 'static files'
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 //route for uploads/avatar(make the uploads [ath available to the browser])
 app.use('/uploads/', express.static(__dirname + '/uploads'));
@@ -76,7 +75,7 @@ app.use(session({
     name: 'social_clone',
 //todo change the secret before deployment in production mode
 //whenever encryption happens ther is a key to encode and decode it.
-    secret: "blahsomething",
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {

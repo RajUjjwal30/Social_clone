@@ -1,8 +1,10 @@
 //requiring mongoose after installation
 const mongoose = require('mongoose');
 
+const env = require('./environment');
+
 //providing connection to the database
-mongoose.connect('mongodb://localhost/social_clone_development');
+mongoose.connect(`mongodb://localhost/${env.db}`);
 
 const db = mongoose.connection;
 //whenever there is any error when connecting to the database
