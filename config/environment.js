@@ -1,5 +1,14 @@
+const fs = require('fs');
+const rfs = require('rotating-file-stream');
+const path = require('path');
 
+const logDirectory = path.join(__dirname, '../production_logs');
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
+const accessLogStream = rfs.createStream('access.log', {
+    interval: '1d',
+    path: logDirectory
+});
 
 const development = {
     name: 'development',
@@ -12,7 +21,11 @@ const development = {
     google_client_secret: "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",
     google_call_back_url: "http://localhost:1000/users/auth/google/callback",
 
-    jwt_secret: 'social_clone'
+    jwt_secret: 'social_clone',
+    morgan: {
+        mode: 'dev',
+        options: {stream: accessLogStream}
+    }
 }
 
 const production = {
@@ -26,7 +39,11 @@ const production = {
     google_client_secret: process.env.SOCIAL_CLONE_GOOGLE_CLIENT_SECRET,
     google_call_back_url: process.env.SOCIAL_CLONE_GOOGLE_CALL_BACK_URL,
 
-    jwt_secret: process.env.SOCIAL_CLONE_JWT_SECRET
+    jwt_secret: process.env.SOCIAL_CLONE_JWT_SECRET,
+    morgan: {
+        mode: 'combined',
+        options: {stream: accessLogStream}
+    }
 }
 
 //eval : if there is string 2+2 then it evaluates it into expression,

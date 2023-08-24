@@ -2,6 +2,8 @@ const express = require('express');
 
 const env = require('./config/environment');
 
+const morgan = require('morgan');
+
 const multer = require('multer');
 //requiring cookie-parser
 const cookieParser = require('cookie-parser');
@@ -38,13 +40,17 @@ const customMware = require('./config/middleware');
 const path = require('path');
 
 //using sass middleware
-app.use(sassMiddleware({
-    src: path.join(__dirname, env.asset_path, 'scss'),
-    dest: path.join(__dirname, env.asset_path, 'css'),
-    debug: true,
-    outputStyle: 'extended',
-    prefix: '/css'
-}));
+//it should be running only when the env is development not n productipon
+if (env.name == 'development'){
+    app.use(sassMiddleware({
+        src: path.join(__dirname, env.asset_path, 'scss'),
+        dest: path.join(__dirname, env.asset_path, 'css'),
+        debug: true,
+        outputStyle: 'extended',
+        prefix: '/css'
+    }));
+}
+
 
 //Reading through the POST requests
 app.use(express.urlencoded());
@@ -56,6 +62,9 @@ app.use(express.static(env.asset_path));
 
 //route for uploads/avatar(make the uploads [ath available to the browser])
 app.use('/uploads/', express.static(__dirname + '/uploads'));
+
+//using morgan for logs
+app.use(morgan('combined',(env.morgan.mode, env.morgan.options)));
 
 app.use(expressLayouts);
 //just below this 
