@@ -9,6 +9,8 @@ const multer = require('multer');
 const cookieParser = require('cookie-parser');
 const app = express();
 
+require('./config/view-helpers')(app);
+
 const port = 1000;
 
 //requiring epress-ejs-layouts(we have to keep above routes and views)
